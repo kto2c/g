@@ -10,6 +10,7 @@ int main(int argc, const char* const argv[]) {
   argparser.registerArg("f", true);
   argparser.registerArg("m", true);
   argparser.registerArg("v", true);
+
   auto ans = argparser.parseArgs(argc, argv);
   try {
     auto res = std::get<std::string>(ans);

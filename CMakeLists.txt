@@ -10,6 +10,14 @@ set_target_properties(aparselib PROPERTIES
     CXX_STANDARD_REQUIRED YES
     CXX_EXTENSIONS NO)
 
+add_library(algolib
+    src/algo/word_automata.cpp
+    src/algo/word_automata.h)
+set_target_properties(algolib PROPERTIES
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED YES
+    CXX_EXTENSIONS NO)
+
 add_executable(test
     src/main.cpp)
 set_target_properties(test PROPERTIES
@@ -18,25 +26,31 @@ set_target_properties(test PROPERTIES
     CXX_EXTENSIONS NO)
 
 add_dependencies(test
-    aparselib)
+    aparselib
+    algolib)
 target_link_libraries(test
-    aparselib)
+    aparselib
+    algolib)
 
 
 # Unit tests.
 add_executable(unittest
     src/tests/main.cpp
-    src/tests/aparse_unittest.cpp)
+    src/tests/aparse_unittest.cpp
+    src/tests/word_unittest.cpp)
 set_target_properties(unittest PROPERTIES
     CXX_STANDARD 20
     CXX_STANDARD_REQUIRED YES
     CXX_EXTENSIONS NO)
 
 target_include_directories(unittest PRIVATE
+    "${PROJECT_SOURCE_DIR}/src/algo"
     "${PROJECT_SOURCE_DIR}/src/argparse")
 add_dependencies(unittest
+    algolib
     aparselib)
 target_link_libraries(unittest
+    algolib
     aparselib)
 
 

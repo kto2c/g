@@ -7,7 +7,7 @@
 #pragma warning(disable : 6031)
 #endif
 
-TEST(bad, only_minus) {
+TEST(args_bad, only_minus) {
   using Parser = tg::ArgParser;
   Parser parser;
   const char* args[] = {"unittest", "-"};
@@ -15,7 +15,7 @@ TEST(bad, only_minus) {
   EXPECT_NO_THROW(std::get<Parser::Err>(parser.parseArgs(size, args)));
 }
 
-TEST(bad, only_double_minus) {
+TEST(args_bad, only_double_minus) {
   using Parser = tg::ArgParser;
   Parser parser;
   const char* args[] = {"unittest", "--"};
@@ -23,7 +23,7 @@ TEST(bad, only_double_minus) {
   EXPECT_NO_THROW(std::get<Parser::Err>(parser.parseArgs(size, args)));
 }
 
-TEST(bad, only_minus_twice) {
+TEST(args_bad, only_minus_twice) {
   using Parser = tg::ArgParser;
   Parser parser;
   const char* args[] = {"unittest", "-", "-"};
@@ -31,7 +31,7 @@ TEST(bad, only_minus_twice) {
   EXPECT_NO_THROW(std::get<Parser::Err>(parser.parseArgs(size, args)));
 }
 
-TEST(bad, unregistered_minus) {
+TEST(args_bad, unregistered_minus) {
   using Parser = tg::ArgParser;
   Parser parser;
   const char* args[] = {"unittest", "-a"};
@@ -39,7 +39,7 @@ TEST(bad, unregistered_minus) {
   EXPECT_NO_THROW(std::get<Parser::Err>(parser.parseArgs(size, args)));
 }
 
-TEST(bad, unregistered_double_minus) {
+TEST(args_bad, unregistered_double_minus) {
   using Parser = tg::ArgParser;
   Parser parser;
   const char* args[] = {"unittest", "--a"};
@@ -47,7 +47,7 @@ TEST(bad, unregistered_double_minus) {
   EXPECT_NO_THROW(std::get<Parser::Err>(parser.parseArgs(size, args)));
 }
 
-TEST(bad, unregistered_val) {
+TEST(args_bad, unregistered_val) {
   using Parser = tg::ArgParser;
   Parser parser;
   const char* args[] = {"unittest", "-a", "a"};
@@ -55,7 +55,7 @@ TEST(bad, unregistered_val) {
   EXPECT_NO_THROW(std::get<Parser::Err>(parser.parseArgs(size, args)));
 }
 
-TEST(bad, double_help) {
+TEST(args_bad, double_help) {
   using Parser = tg::ArgParser;
   Parser parser;
   parser.registerArg("h", false);
@@ -64,7 +64,7 @@ TEST(bad, double_help) {
   EXPECT_NO_THROW(std::get<Parser::Err>(parser.parseArgs(size, args)));
 }
 
-TEST(bad, help) {
+TEST(args_bad, help) {
   using Parser = tg::ArgParser;
   Parser parser;
   parser.registerArg("h", false);
@@ -73,7 +73,7 @@ TEST(bad, help) {
   EXPECT_NO_THROW(std::get<Parser::Err>(parser.parseArgs(size, args)));
 }
 
-TEST(bad, second_arg_isnt_a_flag) {
+TEST(args_bad, second_arg_isnt_a_flag) {
   using Parser = tg::ArgParser;
   Parser parser;
   parser.registerArg("h", false);
@@ -82,7 +82,7 @@ TEST(bad, second_arg_isnt_a_flag) {
   EXPECT_NO_THROW(std::get<Parser::Err>(parser.parseArgs(size, args)));
 }
 
-TEST(bad, arg_expects_val) {
+TEST(args_bad, arg_expects_val) {
   using Parser = tg::ArgParser;
   Parser parser;
   parser.registerArg("h", false);
@@ -92,7 +92,7 @@ TEST(bad, arg_expects_val) {
   EXPECT_NO_THROW(std::get<Parser::Err>(parser.parseArgs(size, args)));
 }
 
-TEST(bad, pseudo_help) {
+TEST(args_bad, pseudo_help) {
   using Parser = tg::ArgParser;
   Parser parser;
   parser.registerArg("h", false);
@@ -101,7 +101,7 @@ TEST(bad, pseudo_help) {
   EXPECT_NO_THROW(std::get<Parser::Err>(parser.parseArgs(size, args)));
 }
 
-TEST(ok, help) {
+TEST(args_good, help) {
   using Parser = tg::ArgParser;
   Parser parser;
   parser.registerArg("h", false);
@@ -114,7 +114,7 @@ TEST(ok, help) {
   EXPECT_EQ(std::get<Parser::Args>(parser.parseArgs(size, args)), expected);
 }
 
-TEST(ok, file) {
+TEST(args_good, file) {
   using Parser = tg::ArgParser;
   Parser parser;
   parser.registerArg("h", false);
@@ -127,7 +127,7 @@ TEST(ok, file) {
   EXPECT_EQ(std::get<Parser::Args>(parser.parseArgs(size, args)), expected);
 }
 
-TEST(ok, mode) {
+TEST(args_good, mode) {
   using Parser = tg::ArgParser;
   Parser parser;
   parser.registerArg("h", false);
@@ -140,7 +140,7 @@ TEST(ok, mode) {
   EXPECT_EQ(std::get<Parser::Args>(parser.parseArgs(size, args)), expected);
 }
 
-TEST(ok, pattern) {
+TEST(args_good, pattern) {
   using Parser = tg::ArgParser;
   Parser parser;
   parser.registerArg("h", false);
@@ -153,7 +153,7 @@ TEST(ok, pattern) {
   EXPECT_EQ(std::get<Parser::Args>(parser.parseArgs(size, args)), expected);
 }
 
-TEST(ok, all) {
+TEST(args_good, all) {
   using Parser = tg::ArgParser;
   Parser parser;
   parser.registerArg("h", false);
