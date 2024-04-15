@@ -11,6 +11,8 @@ set_target_properties(aparselib PROPERTIES
     CXX_EXTENSIONS NO)
 
 add_library(algolib
+    src/algo/sum32.cpp
+    src/algo/sum32.h
     src/algo/word_automata.cpp
     src/algo/word_automata.h)
 set_target_properties(algolib PROPERTIES
@@ -37,6 +39,7 @@ target_link_libraries(test
 add_executable(unittest
     src/tests/main.cpp
     src/tests/aparse_unittest.cpp
+    src/tests/sum32_unittest.cpp
     src/tests/word_unittest.cpp)
 set_target_properties(unittest PROPERTIES
     CXX_STANDARD 20

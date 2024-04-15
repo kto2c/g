@@ -1,15 +1,15 @@
+#include "word_automata.h"
+
 #include <cassert>
 #include <vector>
-#include "word_automata.h"
 
 namespace tg {
 namespace {
 enum class State { noMatch, wordStartMatched, subwordMatched };
 }
 
-
-size_t countWords(std::istream& in, const std::string_view& word,
-                  size_t buf_size_bytes) {
+size_t CountWords(std::istream& in, const std::string_view& word,
+                  const size_t buf_size_bytes) {
   assert(buf_size_bytes > 0);
 
   size_t ans = 0;
@@ -17,7 +17,7 @@ size_t countWords(std::istream& in, const std::string_view& word,
     return ans;
   }
 
-  const auto isWordBoundary = [](char c) {
+  const auto is_word_boundary = [](char c) {
     return c < '0' || (c > '9' && c < 'A') || (c > 'Z' && c < '_') ||
            c == '`' || c > 'z';
   };
@@ -31,9 +31,8 @@ size_t countWords(std::istream& in, const std::string_view& word,
 
     for (const char c : buf) {
       switch (cur_state) {
-        // noMatch todo case "mothers"
         case State::noMatch:
-          if (isWordBoundary(c)) {
+          if (is_word_boundary(c)) {
             cur_state = State::wordStartMatched;
             matched_syms_num = 0;
           }
@@ -45,14 +44,14 @@ size_t countWords(std::istream& in, const std::string_view& word,
             ++matched_syms_num;
             continue;
           }
-          if (isWordBoundary(c)) {
+          if (is_word_boundary(c)) {
             continue;
           }
           cur_state = State::noMatch;
           matched_syms_num = 0;
           break;
         case State::subwordMatched:
-          if (isWordBoundary(c)) {
+          if (is_word_boundary(c)) {
             if (matched_syms_num == word.size()) {
               ++ans;
             }

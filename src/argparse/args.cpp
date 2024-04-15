@@ -3,12 +3,12 @@
 #include <format>
 
 namespace tg {
-void ArgParser::registerArg(const std::string& name, bool has_value) {
+void ArgParser::RegisterArg(const std::string& name, const bool has_value) {
   registered_args[name] = has_value;
 }
 
-ArgParser::ArgsExpected ArgParser::parseArgs(int argc,
-                                             const char *const argv[]) const {
+ArgParser::ArgsExpected ArgParser::ParseArgs(const int argc,
+                                             const char* const argv[]) const {
   Args ans;
   for (int i = 1; i < argc; ++i) {
     const auto cur_arg = argv[i];

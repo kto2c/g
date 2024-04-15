@@ -15,7 +15,7 @@ class ArgParser final {
   using Err = std::string;
   using ArgsExpected = std::variant<Args, Err>;  // C++23 std::expected
 
-  void registerArg(const std::string& name, bool has_value);
-  ArgsExpected parseArgs(int argc, const char *const argv[]) const;
+  void RegisterArg(const std::string& name, bool has_value);
+  ArgsExpected ParseArgs(int argc, const char* const argv[]) const;
 };
 }  // namespace tg
