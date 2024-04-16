@@ -1,5 +1,6 @@
 #include "args.h"
 
+#include <cstring>
 #include <format>
 
 namespace tg {

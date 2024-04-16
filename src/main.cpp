@@ -33,7 +33,7 @@ struct ProcessArgs final {
                             std::views::filter([](const std::string& s) {
                               return s != kHelpFlag;
                             })) {
-          std::cerr << " -" << arg;
+          std::cerr << " -" << arg << std::endl;
         }
         PrintHelp();
         return 1;
@@ -44,11 +44,11 @@ struct ProcessArgs final {
     auto file_it = args.find(kFileFlag);
     auto mode_it = args.find(kModeFlag);
     if (file_it == args.end()) {
-      std::cerr << "Expected '-f' arg";
+      std::cerr << "Expected '-f' arg" << std::endl;
       return 1;
     }
     if (mode_it == args.end()) {
-      std::cerr << "Expected '-m' arg";
+      std::cerr << "Expected '-m' arg" << std::endl;
       return 1;
     }
     assert(file_it->second.has_value() && mode_it->second.has_value());
@@ -59,30 +59,30 @@ struct ProcessArgs final {
                                                          ? std::ios_base::binary
                                                          : std::ios_base::in);
     if (!in.good()) {
-      std::cerr << "Can't read file " << file_path;
+      std::cerr << "Can't read file " << file_path << std::endl;
       return 2;
     }
 
     if (mode == "checksum") {
-      std::cout << tg::Sum32(in);
+      std::cout << tg::Sum32(in) << std::endl;
       return 0;
     }
     if (mode != "words") {
-      std::cerr << "Unexpected mode '" << mode << "'";
+      std::cerr << "Unexpected mode '" << mode << "'" << std::endl;
       return 1;
     }
     auto word_it = args.find(kWordFlag);
     if (word_it == args.end()) {
-      std::cerr << "Expected '-v' arg";
+      std::cerr << "Expected '-v' arg" << std::endl;
       return 1;
     }
     assert(word_it->second.has_value());
-    std::cout << tg::CountWords(in, word_it->second.value());
+    std::cout << tg::CountWords(in, word_it->second.value()) << std::endl;
     return 0;
   }
 
   int operator()(const tg::ArgParser::Err& err) {
-    std::cerr << err;
+    std::cerr << err << std::endl;
     return 1;
   }
 };
