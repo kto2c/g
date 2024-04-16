@@ -49,3 +49,9 @@ TEST(word_chunk, chunk_boundary) {
   std::stringstream s("mother mother");
   EXPECT_EQ(2, tg::CountWords(s, "mother", 7));
 }
+
+TEST(word_chunk, word_longer_than_buffer) {
+  std::stringstream s("1:abcdefghijklmnopqrstuvqxyz abcnotmatched "
+	  "2:abcdefghijklmnopqrstuvqxyz");
+  EXPECT_EQ(2, tg::CountWords(s, "abcdefghijklmnopqrstuvqxyz", 7));
+}
